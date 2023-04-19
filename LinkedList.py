@@ -51,6 +51,7 @@ class LinkedList:
                     break
                 node = self.head
             elif node.value == val and node.next is None:
+                self.tail = prev
                 prev.next = None
                 break
             elif node.value == val and node.next is not None:
