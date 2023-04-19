@@ -41,7 +41,7 @@ class LinkedList:
             node = node.next
         return result
 
-    def delete(self, val, all):
+    def delete(self, val, all=False):
         node = self.head
         prev = None
         while node is not None and not all:
