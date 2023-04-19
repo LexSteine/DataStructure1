@@ -83,6 +83,7 @@ class LinkedList:
             self.head.next = newNode
         else:
             node = self.find(afterNode)
-            newNode.next = node.next
-            node.next = newNode
+            if node is not None:
+                newNode.next = node.next
+                node.next = newNode
         pass
