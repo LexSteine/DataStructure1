@@ -46,10 +46,13 @@ class LinkedList:
         prev = None
         while node is not None:
             if node.value == val and prev is None:
-                self.head = self.head.next
+                if self.head.next is None:
+                    self.clean()
+                else:
+                    self.head = self.head.next
+                node = self.head
                 if not all:
                     break
-                node = self.head
             elif node.value == val and node.next is None:
                 self.tail = prev
                 prev.next = None
@@ -84,7 +87,10 @@ class LinkedList:
             self.head.next = newNode
         else:
             node = self.find(afterNode)
-            if node is not None:
+            if node is not None and node.next is not None:
                 newNode.next = node.next
                 node.next = newNode
+            elif node is not None and node.next is None:
+                node.next = newNode
+                self.tail = newNode
         pass
