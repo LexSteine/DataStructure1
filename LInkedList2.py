@@ -75,6 +75,7 @@ class LinkedList2:
         elif self.head.next is None:
             self.head = newNode
             self.head.next = self.tail
+            self.head.prev = None
             self.tail.prev = self.head
         else:
             self.head.next.prev = newNode
