@@ -78,10 +78,10 @@ class LinkedList2:
             self.head.prev = None
             self.tail.prev = self.head
         else:
-            self.head.next.prev = newNode
+            self.head.prev = newNode
             newNode.next = self.head
+            newNode.prev = None
             self.head = newNode
-            self.head.prev = None
 
     def clean(self):
         self.head = None
