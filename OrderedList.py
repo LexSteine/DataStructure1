@@ -19,49 +19,51 @@ class OrderedList:
 
     def add(self, value):
         node = Node(value)
-        if self.compare(node, self.tail) >= 0 and self.__ascending is True:
+        if self.head is None:
+            self.head = node
+            self.tail = node
+            return
+        if self.compare(node, self.tail) >= 0 and self.__ascending:
             self.tail.next = node
             node.prev = self.tail
             self.tail = node
-            pass
-        if self.compare(node, self.head) <= 0 and self.__ascending is True:
+            return
+        if self.compare(node, self.head) <= 0 and self.__ascending:
             self.head.prev = node
             node.next = self.head
             self.head = node
-            pass
-        if self.compare(node, self.head) >= 0 and self.__ascending is False:
+            return
+        if self.compare(node, self.head) >= 0 and not self.__ascending:
             self.head.prev = node
             node.next = self.head
             self.head = node
-            pass
-        if self.compare(node, self.tail) <= 0 and self.__ascending is False:
+            return
+        if self.compare(node, self.tail) <= 0 and not self.__ascending:
             self.tail.next = node
             node.prev = self.tail
             self.tail = node
-            pass
+            return
         orderNode = self.head.next
-        while self.__ascending is True and orderNode.next is not None:
+        while self.__ascending and orderNode is not None:
             if node.value <= orderNode.value:
                 node.prev = orderNode.prev
                 node.next = orderNode
                 orderNode.prev.next = node
                 orderNode.prev = node
+                return
             orderNode = orderNode.next
-        while self.__ascending is False and orderNode.next is not None:
+        while not self.__ascending and orderNode is not None:
             if node.value >= orderNode.value:
                 node.prev = orderNode.prev
                 node.next = orderNode
                 orderNode.prev.next = node
                 orderNode.prev = node
+                return
             orderNode = orderNode.next
         pass
-        # автоматическая вставка value
-        # в нужную позицию
 
     def find(self, val):
-        if self.__ascending and self.head.value > val or self.tail.value < val:
-            return None
-        if not self.__ascending and self.head.value < val or self.tail.value > val:
+        if (self.head is None) or (self.__ascending and self.head.value > val) or (self.__ascending and self.tail.value < val) or (not self.__ascending and self.head.value < val) or (not self.__ascending and self.tail.value > val):
             return None
         node = self.head
         while node is not None:
@@ -72,7 +74,7 @@ class OrderedList:
 
     def delete(self, val, all=False):
         if self.head is None:
-            pass
+            return
         elif self.head.value == val and self.head.next is None:
             self.clean(self.__ascending)
         node = self.head
